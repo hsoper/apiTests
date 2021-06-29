@@ -1,14 +1,15 @@
 import requests
 url = 'https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty'
 response = requests.get(url)
-data = response.json()
 code = int(data)
-response = requests.get(f'''https://hacker-news.firebaseio.com
-{+}/v0/item/{code}.json?print=pretty''')
+url = f'https://hacker-news.firebaseio.com/v0/item/{code}.json?print=pretty'
+response = requests.get(url)
 story = response.json()
+
 while story['type'] != 'story':
   code -=1
-  response = requests.get(f'https://hacker-news.firebaseio.com/v0/item/{code}.json?print=pretty')
+ url = f'https://hacker-news.firebaseio.com/v0/item/{code}.json?print=pretty'
+ response = requests.get(url)
   story = response.json()
 print(story)
 url = "No link was given"
