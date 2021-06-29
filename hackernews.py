@@ -7,9 +7,9 @@ response = requests.get(url)
 story = response.json()
 
 while story['type'] != 'story':
-  code -=1
- url = f'https://hacker-news.firebaseio.com/v0/item/{code}.json?print=pretty'
- response = requests.get(url)
+  code -= 1
+  url = f'https://hacker-news.firebaseio.com/v0/item/{code}.json?print=pretty'
+  response = requests.get(url)
   story = response.json()
 print(story)
 url = "No link was given"
