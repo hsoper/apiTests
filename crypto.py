@@ -12,9 +12,9 @@ print(coins)
 coin = []
 priceUSD = []
 for key,usd in coins.items():
-  coin.append(key)
-  for k,i in usd.items():
-    priceUSD.append(float(i))
+    coin.append(key)
+        for k,i in usd.items():
+            priceUSD.append(float(i))
 user = input("What cryptocurrency's price do you want to know?\n")
 user = user.lower()
 coins = h.get_price(ids=user, vs_currencies='usd')
