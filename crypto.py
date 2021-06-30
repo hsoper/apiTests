@@ -30,7 +30,7 @@ def get_users_coinusd():
   
 def append_json_values(lis,json):
     temp = get_names_and_usd(json)
-    for i in range(0,len(temp)):
+    for i in range(0, len(temp)):
         for x in temp[i]:
             lis[i].append(x)
     return lis
@@ -48,7 +48,7 @@ def sendto_database(datafr,database,table):
     
 coins = get_coingecko_json('ethereum,monero,tether')
 coin_usd = get_names_and_usd(coins)
-coin_usd = append_json_values(coin_usd,get_users_coinusd())
+coin_usd = append_json_values(coin_usd, get_users_coinusd())
 dcoins = make_dataframe(coin_usd)
 print(dcoins)
-sendto_database(dcoins,engine,'CoinPrices')
+sendto_database(dcoins, "crypto", 'CoinPrices')
