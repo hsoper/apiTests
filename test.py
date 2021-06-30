@@ -3,7 +3,7 @@ import json
 from pycoingecko import CoinGeckoAPI
 response = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
 data = response.json()['bpi']['USD']['rate']
-print('This is the current bitcoin price according to coindesk :',data)
+print('This is the current bitcoin price according to coindesk :', data)
 h = CoinGeckoAPI()
 data = h.get_price(ids='dogecoin', vs_currencies='usd')['dogecoin']['usd']
 print("This is the current dogecoin price according to CoinGecko : ",data)
