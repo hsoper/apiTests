@@ -5,5 +5,5 @@ data = response.json()
 print("Status Code :", response.status_code)
 people = data['people']
 
-for i in range(0,5):
-     print(people[i]['name'])
+for i in range(0, 5):
+    print(people[i]['name'])
