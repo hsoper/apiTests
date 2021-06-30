@@ -3,6 +3,7 @@ import json
 from pycoingecko import CoinGeckoAPI
 import pandas as pd
 from sqlalchemy import create_engine
+
 response = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
 data = response.json()['bpi']['USD']['rate']
 h = CoinGeckoAPI()
