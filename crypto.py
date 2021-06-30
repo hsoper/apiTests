@@ -22,8 +22,8 @@ for key, item in coins.items():
     if key == user:
         coin.append(key)
         priceUSD.append(float(item['usd']))
-print(coin,f"\n{priceUSD}")
-dcoins = {"Coin":coin,"PriceUSD":priceUSD}
+print(coin, f"\n{priceUSD}")
+dcoins = {"Coin":coin, "PriceUSD":priceUSD}
 dcoins = pd.DataFrame.from_dict(dcoins)
 print(dcoins)
 engine = create_engine('mysql://root:codio@localhost/Crypto')
