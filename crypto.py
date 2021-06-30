@@ -23,7 +23,7 @@ for key, item in coins.items():
         coin.append(key)
         priceUSD.append(float(item['usd']))
 print(coin, f"\n{priceUSD}")
-dcoins = {"Coin":coin, "PriceUSD":priceUSD}
+dcoins = {"Coin": coin, "PriceUSD": priceUSD}
 dcoins = pd.DataFrame.from_dict(dcoins)
 print(dcoins)
 engine = create_engine('mysql://root:codio@localhost/Crypto')
