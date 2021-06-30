@@ -20,7 +20,7 @@ user = input("What cryptocurrency's price do you want to know?\n")
 user = user.lower()
 coins = h.get_price(ids=user, vs_currencies='usd')
 coin = "No cryptocurrency entered."
-for key,item in coins.items():
+for key, item in coins.items():
     if key == user:
         coin = f"{user.upper()[0:1]+user[1:]} price : {coins[user]['usd']}"
 print(coin)
