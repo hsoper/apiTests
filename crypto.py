@@ -74,25 +74,25 @@ def sendto_database(datafr, database, table):
 # sendto_database(dcoins, "crypto", 'CoinPrices')
 # os.system("mysqldump -u root -pcodio crypto > crypto.sql")
 coins = get_coingecko_json('ethereum,monero,tether,bitcoin')
-tether_usd = coins['tether']['usd']
-monero_usd = coins['monero']['usd']
-ethereum_usd = coins['ethereum']['usd']
-bitcoin_usd = coins['bitcoin']['usd']
+tether = coins['tether']['usd']
+monero = coins['monero']['usd']
+ethereum = coins['ethereum']['usd']
+bitcoin = coins['bitcoin']['usd']
 engine = sq.create_engine('mysql://root:codio@localhost/' + "crypto")
 metadata = sq.MetaData()
 connection = engine.connect()
-coin_prices = sq.Table('CoinPrices', 
+coin_prices = sq.Table('CoinPrices',
                        metadata, autoload = True, autoload_with = engine)
 q = sq.update(coin_prices).values(PriceUSD =
-                                  tether_usd).where(coin_prices.columns.Coin ==
+                                  tether).where(coin_prices.columns.Coin ==
                                                     'tether')
 connection.execute(q)
 q = sq.update(coin_prices).values(PriceUSD =
-                                  monero_usd).where(coin_prices.columns.Coin ==
+                                  monero).where(coin_prices.columns.Coin ==
                                                     'monero')
 connection.execute(q)
 q = sq.update(coin_prices).values(PriceUSD =
-                                  ethereum_usd).where(coin_prices.columns.Coin ==
+                                  ethereum).where(coin_prices.columns.Coin ==
                                                       'ethereum_usd')
 connection.execute(q)
 q = sq.update(coin_prices).values(PriceUSD =
