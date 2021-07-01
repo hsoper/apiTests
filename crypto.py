@@ -57,7 +57,6 @@ def sendto_database(datafr, database, table):
     engine = create_engine('mysql://root:codio@localhost/'+ database)
     datafr.to_sql(table, con=engine, if_exists='replace', index=False)
 
-    
 
 # coins = get_coingecko_json('ethereum,monero,tether')
 # coin_usd = get_names_and_usd(coins)
@@ -65,3 +64,10 @@ def sendto_database(datafr, database, table):
 # dcoins = make_dataframe(coin_usd)
 # print(dcoins)
 # sendto_database(dcoins, "crypto", 'CoinPrices')
+    
+coins = get_coingecko_json('ethereum,monero,tether')
+coin_usd = get_names_and_usd(coins)
+coin_usd = append_json_values(coin_usd, get_users_coinusd())
+dcoins = make_dataframe(coin_usd)
+print(dcoins)
+sendto_database(dcoins, "crypto", 'CoinPrices')
