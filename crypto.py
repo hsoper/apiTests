@@ -1,8 +1,8 @@
 import requests
 import json
 import pandas as pd
-from sqlalchemy import create_engine
-
+import sqlalchemy as sq
+import os;
 
 # Test when if the input is a supported crypto in the correct format
 # Check for null inputs
@@ -14,6 +14,7 @@ def get_coingecko_json(coin):
                                        + '&vs_currencies=usd').json():
         print("That is not a valid crypto name. Heres the value of bitcoin")
         return requests.get(baseURL + "bitcoin" + '&vs_currencies=usd').json()
+    print(response.json())
     return response.json()
 
 
@@ -60,13 +61,32 @@ def make_dataframe(coin_usd):
 # no return value
 # Possibly check the inputs of the method
 def sendto_database(datafr, database, table):
-    engine = create_engine('mysql://root:codio@localhost/' + database)
+    engine = sq.create_engine('mysql://root:codio@localhost/' + database)
     datafr.to_sql(table, con=engine, if_exists='replace', index=False)
 
 
 # coins = get_coingecko_json('ethereum,monero,tether')
 # coin_usd = get_names_and_usd(coins)
-# coin_usd = append_json_values(coin_usd, get_users_coinusd())
+# coin_usd = append_json_values(coin_usd, get_coingecko_json('Bitcoin'))
 # dcoins = make_dataframe(coin_usd)
 # print(dcoins)
 # sendto_database(dcoins, "crypto", 'CoinPrices')
+# os.system("mysqldump -u root -pcodio crypto > crypto.sql")
+coins = get_coingecko_json('ethereum,monero,tether,bitcoin')
+tether_usd = coins['tether']['usd']
+monero_usd = coins['monero']['usd']
+ethereum_usd = coins['ethereum']['usd']
+bitcoin_usd = coins['bitcoin']['usd']
+engine = sq.create_engine('mysql://root:codio@localhost/' + "crypto")
+metadata = sq.MetaData()
+connection = engine.connect()
+coin_prices = sq.Table('CoinPrices', metadata, autoload=True, autoload_with=engine)
+q = sq.update(coin_prices).values(PriceUSD = tether_usd).where(coin_prices.columns.Coin =='tether')
+connection.execute(q)
+q = sq.update(coin_prices).values(PriceUSD = monero_usd).where(coin_prices.columns.Coin =='monero')
+connection.execute(q)
+q = sq.update(coin_prices).values(PriceUSD = ethereum_usd).where(coin_prices.columns.Coin =='ethereum_usd')
+connection.execute(q)
+q = sq.update(coin_prices).values(PriceUSD = bitcoin_usd).where(coin_prices.columns.Coin =='bitcoin')
+connection.execute(q)
+os.system("mysqldump -u root -pcodio crypto > crypto.sql")
