@@ -78,25 +78,26 @@ tether = coins['tether']['usd']
 monero = coins['monero']['usd']
 ethereum = coins['ethereum']['usd']
 bitcoin = coins['bitcoin']['usd']
-engine = sq.create_engine('mysql://root:codio@localhost/' + "crypto")
-metadata = sq.MetaData()
-connection = engine.connect()
-coin_prices = sq.Table('CoinPrices',
-                       metadata, autoload=True, autoload_with=engine)
-q = sq.update(coin_prices).values(PriceUSD=
-                                  tether).where(coin_prices.columns.Coin ==
-                                                'tether')
-connection.execute(q)
-q = sq.update(coin_prices).values(PriceUSD
-                                  =monero).where(coin_prices.columns.Coin
-                                                 == 'monero')
-connection.execute(q)
-q = sq.update(coin_prices).values(PriceUSD=
-                                  ethereum).where(coin_prices.columns.Coin ==
-                                                  'ethereum')
-connection.execute(q)
-q = sq.update(coin_prices).values(PriceUSD=
-                                  bitcoin).where(coin_prices.columns.Coin ==
-                                                 'bitcoin')
-connection.execute(q)
-os.system("mysqldump -u root -pcodio crypto > crypto.sql")
+# engine = sq.create_engine('mysql://root:codio@localhost/' + "crypto")
+# metadata = sq.MetaData()
+# connection = engine.connect()
+# coin_prices = sq.Table('CoinPrices',
+#                       metadata, autoload=True, autoload_with=engine)
+# q = sq.update(coin_prices).values(PriceUSD=
+#                                  tether).where(coin_prices.columns.Coin ==
+#                                                'tether')
+# connection.execute(q)
+# q = sq.update(coin_prices).values(PriceUSD
+#                                   =monero).where(coin_prices.columns.Coin
+#                                                 == 'monero')
+# connection.execute(q)
+# q = sq.update(coin_prices).values(PriceUSD=
+#                                  ethereum).where(coin_prices.columns.Coin ==
+#                                                  'ethereum')
+# connection.execute(q)
+# q = sq.update(coin_prices).values(PriceUSD=
+#                                   bitcoin).where(coin_prices.columns.Coin ==
+#                                                  'bitcoin')
+# connection.execute(q)
+# os.system("mysqldump -u root -pcodio crypto > crypto.sql")
+# uncomment from line 81 if you want to update a database
