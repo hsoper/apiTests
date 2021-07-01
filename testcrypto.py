@@ -24,15 +24,6 @@ class TestFileName(unittest.TestCase):
         self.assertNotEqual(len(get_names_and_usd(response.json())[1]), 0)
 
 
-    # The function should not return an empty json file.
-    # Reprompt the user or deal with the problem in 
-    # get_coingecko_json(st) since this function calls it.
-    def test_get_users_coinusd(self):
-        baseURL = 'https://api.coingecko.com/api/v3/simple/price?ids='
-        response = requests.get(baseURL + "coin" + '&vs_currencies=usd')
-        self.assertNotEqual(get_users_coinusd(), response.json())
-
-
     #method should always return whatever the json file is going to append
     #even if the user doesn't input a correct list format
     def test_append_json_values(self):
