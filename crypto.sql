@@ -34,8 +34,31 @@ CREATE TABLE `CoinPrices` (
 
 LOCK TABLES `CoinPrices` WRITE;
 /*!40000 ALTER TABLE `CoinPrices` DISABLE KEYS */;
-INSERT INTO `CoinPrices` VALUES ('ethereum',2112.79),('tether',0.999891),('monero',209.76),('bitcoin',33391);
+INSERT INTO `CoinPrices` VALUES ('ethereum',2142.94),('tether',1),('monero',209.32),('bitcoin',33729);
 /*!40000 ALTER TABLE `CoinPrices` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `crypto_prices`
+--
+
+DROP TABLE IF EXISTS `crypto_prices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crypto_prices` (
+  `Coin` text DEFAULT NULL,
+  `PriceUSD` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `crypto_prices`
+--
+
+LOCK TABLES `crypto_prices` WRITE;
+/*!40000 ALTER TABLE `crypto_prices` DISABLE KEYS */;
+INSERT INTO `crypto_prices` VALUES ('ethereum',2112.79),('tether',0.999891),('monero',209.76),('bitcoin',33391);
+/*!40000 ALTER TABLE `crypto_prices` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +70,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-01 19:12:23
+-- Dump completed on 2021-07-01 22:24:59

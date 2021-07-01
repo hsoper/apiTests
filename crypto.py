@@ -82,21 +82,21 @@ engine = sq.create_engine('mysql://root:codio@localhost/' + "crypto")
 metadata = sq.MetaData()
 connection = engine.connect()
 coin_prices = sq.Table('CoinPrices',
-                       metadata, autoload = True, autoload_with = engine)
-q = sq.update(coin_prices).values(PriceUSD =
+                       metadata, autoload=True, autoload_with=engine)
+q = sq.update(coin_prices).values(PriceUSD=
                                   tether).where(coin_prices.columns.Coin ==
-                                                    'tether')
+                                                'tether')
 connection.execute(q)
-q = sq.update(coin_prices).values(PriceUSD =
-                                  monero).where(coin_prices.columns.Coin ==
-                                                    'monero')
+q = sq.update(coin_prices).values(PriceUSD
+                                  =monero).where(coin_prices.columns.Coin
+                                                 == 'monero')
 connection.execute(q)
-q = sq.update(coin_prices).values(PriceUSD =
+q = sq.update(coin_prices).values(PriceUSD=
                                   ethereum).where(coin_prices.columns.Coin ==
-                                                      'ethereum_usd')
+                                                  'ethereum')
 connection.execute(q)
-q = sq.update(coin_prices).values(PriceUSD =
-                                  bitcoin_usd).where(coin_prices.columns.Coin ==
-                                                     'bitcoin')
+q = sq.update(coin_prices).values(PriceUSD=
+                                  bitcoin).where(coin_prices.columns.Coin ==
+                                                 'bitcoin')
 connection.execute(q)
 os.system("mysqldump -u root -pcodio crypto > crypto.sql")
