@@ -1,6 +1,7 @@
 import unittest
 import requests
 import pandas as pd
+import sqlalchemy
 from crypto import get_coingecko_json, get_names_and_usd
 from crypto import make_dataframe, append_json_values
 
