@@ -2,8 +2,7 @@ import unittest
 import requests
 import pandas as pd
 from crypto import get_coingecko_json, get_names_and_usd
-from crypto import get_users_coinusd, append_json_values
-from crypto import make_dataframe
+from crypto import make_dataframe, append_json_values
 
 class TestFileName(unittest.TestCase):
     # The function should not return an empty string. Might add some default crypto
