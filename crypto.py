@@ -10,7 +10,7 @@ def get_coingecko_json(coin):
     baseURL = ('https://api.coingecko.com/'
                + 'api/v3/simple/price?ids=')
     response = requests.get(baseURL + str(coin) + '&vs_currencies=usd')
-    if response.json() == requests.get(baseURL + 'w' 
+    if response.json() == requests.get(baseURL + 'w'
                                        + '&vs_currencies=usd').json():
         print("That is not a valid crypto name. Heres the value of bitcoin")
         return requests.get(baseURL + "bitcoin" + '&vs_currencies=usd').json()
@@ -47,10 +47,11 @@ def make_dataframe(coin_usd):
     if type(coin_usd) is not list:
         print("Sorry that is not a valid input. Your input will be returned.")
         return coin_usd
-    if (len(coin_usd) != 2 or type(coin_usd[1]) is not list
-                           or type(coin_usd[0]) is not list):
+    if (len(coin_usd) != 2 
+        or type(coin_usd[1]) is not list 
+        or type(coin_usd[0]) is not list):
         print("Sorry that is not a valid input. Your input will be returned.")
-        return coin_usd;
+        return coin_usd
     dcoins = {"Coin": coin_usd[0], "PriceUSD": coin_usd[1]}
     dcoins = pd.DataFrame.from_dict(dcoins)
     return dcoins
