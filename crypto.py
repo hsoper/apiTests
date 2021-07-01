@@ -49,7 +49,7 @@ def make_dataframe(coin_usd):
         return coin_usd
     if (len(coin_usd) != 2
             or type(coin_usd[1]) is not list
-                or type(coin_usd[0]) is not list):
+            or type(coin_usd[0]) is not list):
         print("Sorry that is not a valid input. Your input will be returned.")
         return coin_usd
     dcoins = {"Coin": coin_usd[0], "PriceUSD": coin_usd[1]}
