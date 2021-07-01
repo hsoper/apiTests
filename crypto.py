@@ -9,8 +9,8 @@ from sqlalchemy import create_engine
 def get_coingecko_json(coin):
     baseURL = ('https://api.coingecko.com/'
                + 'api/v3/simple/price?ids=')
-    response = requests.get(baseURL + coin + '&vs_currencies=usd')
-    if response.json() == "{}":
+    response = requests.get(baseURL + str(coin) + '&vs_currencies=usd')
+    if response.json() == requests.get(baseURL+'w'+'&vs_currencies=usd').json():
         print("That is not a valid crypto name. Heres the value of bitcoin")
         return requests.get(baseURL + "bitcoin" + '&vs_currencies=usd').json()
     return response.json()
@@ -24,6 +24,7 @@ def get_names_and_usd(json):
         for k, i in usd.items():
             temp[1].append(float(i))
     return temp
+
 
 # deleted get_get_users_coinusd() since its
 # function is similar to get_coingecko_json()
@@ -43,14 +44,12 @@ def append_json_values(lis, json):
 # check when when the list contains the wrong types. (not a string or float)
 def make_dataframe(coin_usd):
     if type(coin_usd) is not list:
-        print("Sorry that is not a valid input. Heres an empty dataframe.")
-        return pd.DataFrame.from_dict({})
-
-    if (len(coin_usd) != 2 or type(coin_usd[1]) is not list 
+        print("Sorry that is not a valid input. Your input will be returned.")
+        return coin_usd;
+    if (len(coin_usd) != 2 or type(coin_usd[1]) is not list
         or type(coin_usd[0]) is not list):
-        print("Sorry that is not a valid input. Heres an empty dataframe.")
-        return pd.DataFrame.from_dict({})
-
+        print("Sorry that is not a valid input. Your input will be returned.")
+        return coin_usd;
     dcoins = {"Coin": coin_usd[0], "PriceUSD": coin_usd[1]}
     dcoins = pd.DataFrame.from_dict(dcoins)
     return dcoins
