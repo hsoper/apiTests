@@ -5,9 +5,9 @@ from crypto import get_coingecko_json, get_names_and_usd
 from crypto import make_dataframe, append_json_values
 
 class TestFileName(unittest.TestCase):
-    # The function should not return an empty string. 
-    # Might add some default crypto the users as 
-    # input if the user inputs an invalid 
+    # The function should not return an empty string.
+    # Might add some default crypto the users as
+    # input if the user inputs an invalid
     def test_get_coingecko_json(self):
         baseURL = 'https://api.coingecko.com/api/v3/simple/price?ids='
         response = requests.get(baseURL+"coin" + '&vs_currencies=usd')
@@ -30,7 +30,7 @@ class TestFileName(unittest.TestCase):
         baseURL = 'https://api.coingecko.com/api/v3/simple/price?ids='
         response = requests.get(baseURL + "bitcoin" + '&vs_currencies=usd')
         temp = get_names_and_usd(response.json())
-        self.assertEqual(append_json_values([[],[]], response.json()), temp)
+        self.assertEqual(append_json_values([[], []], response.json()), temp)
         self.assertEqual(append_json_values("list", response.json()), temp)
         self.assertEqual(append_json_values(242, response.json()), temp)
 
