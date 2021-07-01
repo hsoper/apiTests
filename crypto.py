@@ -3,12 +3,13 @@ import json
 import pandas as pd
 from sqlalchemy import create_engine
 
+
 # Test when if the input is a supported crypto in the correct format
 # Check for null inputs
 def get_coingecko_json(coin):
     baseURL = ('https://api.coingecko.com/'
-              +'api/v3/simple/price?ids=')
-    response = requests.get(baseURL+coin+'&vs_currencies=usd')
+               + 'api/v3/simple/price?ids=')
+    response = requests.get(baseURL + coin + '&vs_currencies=usd')
     return response.json()
 
 
@@ -21,17 +22,15 @@ def get_names_and_usd(json):
             temp[1].append(float(i))
     return temp
 
-# deleted get_get_users_coinusd() since its 
+# deleted get_get_users_coinusd() since its
 # function is similar to get_coingecko_json()
 
 # check when the input is a null for the list
 # check when the json file is empty
-def append_json_values(lis,json):
-    
+def append_json_values(lis, json):
     temp = get_names_and_usd(json)
     if type(lis) is not list:
         return temp
-        
     for i in range(0, len(temp)):
         for x in temp[i]:
             lis[i].append(x)
