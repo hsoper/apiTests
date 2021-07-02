@@ -82,7 +82,7 @@ def get_database(database, file):
 def get_table(database, table):
     engine = sq.create_engine('mysql://root:codio@localhost/'
                               + database)
-    return pd.read_sql_table(table,con=engine)
+    return pd.read_sql_table(table, con=engine)
 
 
 def update_table_coin(database, table, price, crypto):
@@ -103,7 +103,7 @@ monero = coins['monero']['usd']
 ethereum = coins['ethereum']['usd']
 bitcoin = coins['litecoin']['usd']
 coin = make_dataframe(get_names_and_usd(coins))
-sendto_database(coin,'crypto','CoinPrices')
+# sendto_database(coin,'crypto','CoinPrices')
 # update_table_coin('crypto', 'CoinPrices', tether, 'dash')
 # update_table_coin('crypto', 'CoinPrices', monero, 'monero')
 # update_table_coin('crypto', 'CoinPrices', bitcoin, 'litecoin')
@@ -125,9 +125,10 @@ def make_barChart(dataframe, titles, values, x_label, graph_title):
     ax.legend()
     plt.show()
 
+
 # make_barChart(coin, 'Coin', 'PriceUSD', 'Prices',
 #               "Some Crypto with their prices")
-#coin = get_table('crypto','CoinPrices')
+# coin = get_table('crypto','CoinPrices')
 print(coin['PriceUSD'].mean())
 print(coin['PriceUSD'].median())
 print(coin['PriceUSD'].value_counts())
