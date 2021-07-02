@@ -66,25 +66,25 @@ def sendto_database(datafr, database, table):
     datafr.to_sql(table, con=engine, if_exists='replace', index=False)
 
 
-def save_database(database,file):
-    os.system("mysqldump -u root -pcodio " + 
-              database + " > " +file)
+def save_database(database, file):
+    os.system("mysqldump -u root -pcodio " +
+              database + " > " + file)
 
 
-def get_database(database,file):
+def get_database(database, file):
     os.system("mysqldump -u root -pcodio " + 
               database + " < " +file)
 
 
-def update_table_coin(database,table,price,crypto):
+def update_table_coin(database, table, price, crypto):
     engine = sq.create_engine('mysql://root:codio@localhost/' 
                               + database)
     meta = sq.MetaData()
     con = engine.connect()
     tab = sq.Table(table, meta, autoload=True, autoload_with=engine)
     q = sq.update(tab).values(PriceUSD=
-                                  price).where(tab.columns.Coin ==
-                                                crypto)
+                              price).where(tab.columns.Coin ==
+                                           crypto)
     con.execute(q)
 
 
