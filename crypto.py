@@ -104,7 +104,7 @@ coin = make_dataframe(get_names_and_usd(coins))
 # update_table_coin('crypto', 'CoinPrices', ethereum, 'ethereum')
 
 
-def make_barChart(dataframe,titles,values,x_label,graph_title):
+def make_barChart(dataframe, titles,values, x_label, graph_title):
     title = dataframe[titles]
     y_pos = np.arange(len(title))
     prices = [float(i) for i in dataframe[values]]
@@ -121,5 +121,5 @@ def make_barChart(dataframe,titles,values,x_label,graph_title):
 
 
 coin = make_dataframe(get_names_and_usd(coins))
-make_barChart(coin, 'Coin', 'PriceUSD', 'Prices', 
+make_barChart(coin, 'Coin', 'PriceUSD', 'Prices',
               "Some Crypto with their prices")
