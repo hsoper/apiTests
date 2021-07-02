@@ -77,7 +77,7 @@ def get_database(database, file):
 
 
 def update_table_coin(database, table, price, crypto):
-    engine = sq.create_engine('mysql://root:codio@localhost/' 
+    engine = sq.create_engine('mysql://root:codio@localhost/'
                               + database)
     meta = sq.MetaData()
     con = engine.connect()
