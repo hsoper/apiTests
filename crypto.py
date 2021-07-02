@@ -3,6 +3,9 @@ import json
 import pandas as pd
 import sqlalchemy as sq
 import os
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
 
 
 # Test when if the input is a supported crypto in the correct format
@@ -72,7 +75,7 @@ def save_database(database, file):
 
 
 def get_database(database, file):
-    os.system("mysqldump -u root -pcodio " +
+    os.system("mysql -u root -pcodio " +
               database + " < " + file)
 
 
@@ -87,11 +90,36 @@ def update_table_coin(database, table, price, crypto):
     con.execute(q)
 
 
-# coins = get_coingecko_json('ethereum,monero,tether,bitcoin')
-# tether = coins['tether']['usd']
-# monero = coins['monero']['usd']
-# ethereum = coins['ethereum']['usd']
-# bitcoin = coins['bitcoin']['usd']
-# update_table_coin('crypto','CoinPrices',tether,'tether')
-# update_table_coin('crypto','CoinPrices',monero,'monero')
-# update_table_coin('crypto','CoinPrices',bitcoin,'bitcoin')
+# get_database("crypto",'crypto.sql')
+coins = get_coingecko_json('ethereum,monero,dash,litecoin')
+tether = coins['dash']['usd']
+monero = coins['monero']['usd']
+ethereum = coins['ethereum']['usd']
+bitcoin = coins['litecoin']['usd']
+coin = make_dataframe(get_names_and_usd(coins))
+# sendto_database(coin,'crypto','CoinPrices')
+# update_table_coin('crypto', 'CoinPrices', tether, 'dash')
+# update_table_coin('crypto', 'CoinPrices', monero, 'monero')
+# update_table_coin('crypto', 'CoinPrices', bitcoin, 'litecoin')
+# update_table_coin('crypto', 'CoinPrices', ethereum, 'ethereum')
+
+
+def make_barChart(dataframe,titles,values,x_label,graph_title):
+    title = dataframe[titles]
+    y_pos = np.arange(len(title))
+    prices = [float(i) for i in dataframe[values]]
+    fig, ax = plt.subplots()
+    hbars = ax.barh(y_pos, prices, align='center',
+                    label=dataframe[values])
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(title)
+    ax.invert_yaxis()
+    ax.set_xlabel(x_label)
+    ax.set_title(graph_title)
+    ax.legend()
+    plt.show()
+
+
+coin = make_dataframe(get_names_and_usd(coins))
+make_barChart(coin, 'Coin', 'PriceUSD', 'Prices', 
+              "Some Crypto with their prices")
