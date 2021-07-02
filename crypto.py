@@ -66,38 +66,33 @@ def sendto_database(datafr, database, table):
     datafr.to_sql(table, con=engine, if_exists='replace', index=False)
 
 
-# coins = get_coingecko_json('ethereum,monero,tether')
-# coin_usd = get_names_and_usd(coins)
-# coin_usd = append_json_values(coin_usd, get_coingecko_json('Bitcoin'))
-# dcoins = make_dataframe(coin_usd)
-# print(dcoins)
-# sendto_database(dcoins, "crypto", 'CoinPrices')
-# os.system("mysqldump -u root -pcodio crypto > crypto.sql")
-coins = get_coingecko_json('ethereum,monero,tether,bitcoin')
-tether = coins['tether']['usd']
-monero = coins['monero']['usd']
-ethereum = coins['ethereum']['usd']
-bitcoin = coins['bitcoin']['usd']
-# engine = sq.create_engine('mysql://root:codio@localhost/' + "crypto")
-# metadata = sq.MetaData()
-# connection = engine.connect()
-# coin_prices = sq.Table('CoinPrices',
-#                       metadata, autoload=True, autoload_with=engine)
-# q = sq.update(coin_prices).values(PriceUSD=
-#                                  tether).where(coin_prices.columns.Coin ==
-#                                                'tether')
-# connection.execute(q)
-# q = sq.update(coin_prices).values(PriceUSD
-#                                   =monero).where(coin_prices.columns.Coin
-#                                                 == 'monero')
-# connection.execute(q)
-# q = sq.update(coin_prices).values(PriceUSD=
-#                                  ethereum).where(coin_prices.columns.Coin ==
-#                                                  'ethereum')
-# connection.execute(q)
-# q = sq.update(coin_prices).values(PriceUSD=
-#                                   bitcoin).where(coin_prices.columns.Coin ==
-#                                                  'bitcoin')
-# connection.execute(q)
-# os.system("mysqldump -u root -pcodio crypto > crypto.sql")
-# uncomment from line 81 if you want to update a database
+def save_database(database,file):
+    os.system("mysqldump -u root -pcodio " + 
+              database + " > " +file)
+
+
+def get_database(database,file):
+    os.system("mysqldump -u root -pcodio " + 
+              database + " < " +file)
+
+
+def update_table_coin(database,table,price,crypto):
+    engine = sq.create_engine('mysql://root:codio@localhost/' 
+                              + database)
+    meta = sq.MetaData()
+    con = engine.connect()
+    tab = sq.Table(table, meta, autoload=True, autoload_with=engine)
+    q = sq.update(tab).values(PriceUSD=
+                                  price).where(tab.columns.Coin ==
+                                                crypto)
+    con.execute(q)
+
+
+# coins = get_coingecko_json('ethereum,monero,tether,bitcoin')
+# tether = coins['tether']['usd']
+# monero = coins['monero']['usd']
+# ethereum = coins['ethereum']['usd']
+# bitcoin = coins['bitcoin']['usd']
+# update_table_coin('crypto','CoinPrices',tether,'tether')
+# update_table_coin('crypto','CoinPrices',monero,'monero')
+# update_table_coin('crypto','CoinPrices',bitcoin,'bitcoin')
